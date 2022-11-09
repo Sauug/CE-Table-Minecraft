@@ -1,0 +1,434 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="42">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>1496</ID>
+      <Description>"Creative &gt;&gt; Commande with ahcivement N"</Description>
+      <LastState/>
+      <Color>D7CA53</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+
+aobscanmodule(Main1,Minecraft.Windows.exe,8B 00 48 83 C4 20 5B C3 B8 05) // Controls GameMode
+alloc(newmem,$100,Main1)
+alloc(GameMode,4)
+
+aobscanmodule(Extens2,Minecraft.Windows.exe,45 38 B7 60 0A 00 00) // Controls Inventory
+alloc(newmema,$100,Extens2)
+
+aobscanmodule(Effect,Minecraft.Windows.exe,38 87 3C 0A 00 00) // Controls char effects
+alloc(newmemb,$100,Effect)
+
+aobscanmodule(Water,Minecraft.Windows.exe,44 38 AE 60 0A 00 00 0F B6) // Controls Char breathing under water
+alloc(newmemc,$100,Water)
+
+aobscanmodule(CheatCode,Minecraft.Windows.exe,44 0F B6 87 64 05 00 00) // This enables Cheat Codes 0F B6 81 44 07 00 00
+alloc(cheatsMemory,$100,CheatCode)
+
+GameMode:
+dd 0
+
+label(code)
+label(return)
+
+newmem:
+cmp [GameMode],1
+jne code
+mov [eax],#1
+mov eax,[rax]
+add rsp,20
+jmp return
+
+code:
+  mov [eax],#0
+  mov eax,[rax]
+  add rsp,20
+  jmp return
+
+Main1:
+  jmp newmem
+  nop
+return:
+registersymbol(Main1 GameMode)
+
+label(codea)
+label(returna)
+
+newmema:
+cmp [GameMode],1
+jne codea
+mov [r15+00000A60],01
+cmp [r15+00000A60],r15l
+jmp returna
+
+codea:
+  mov [r15+00000A60],00
+  cmp [r15+00000A60],r15l
+  jmp returna
+
+Extens2:
+  jmp newmema
+  nop 2
+returna:
+registersymbol(Extens2)
+
+label(codeb)
+label(returnb)
+
+newmemb:
+cmp [GameMode],1
+jne codeb
+mov [rdi+00000A3C],#1
+jmp returnb
+
+codeb:
+ mov [rdi+00000A3C],#0
+  cmp byte ptr [rdi+00000A3C],00
+  jmp returnb
+
+Effect:
+  jmp newmemb
+  nop
+returnb:
+registersymbol(Effect)
+
+label(codec)
+label(returnc)
+
+newmemc:
+cmp [GameMode],1
+jne codec
+mov byte ptr [rsi+00000A60],01
+cmp byte ptr [rsi+00000A60],00
+jmp returnc
+
+
+codec:
+  mov byte ptr [rsi+00000A60],00
+  cmp byte ptr [rsi+00000A60],00
+  jmp returnc
+
+Water:
+  jmp newmemc
+  nop 2
+returnc:
+registersymbol(Water)
+
+label(Cheatcode)
+label(returnCheatcode)
+
+cheatsMemory:
+cmp [GameMode],1
+mov byte ptr [rdi+00000564],#0
+jne Cheatcode
+mov byte ptr [rdi+00000564],#1
+movzx r8d,byte ptr [rdi+00000564]
+jmp returnCheatcode
+
+Cheatcode:
+movzx r8d,byte ptr [rdi+00000564]
+jmp returnCheatcode
+
+CheatCode:
+  jmp cheatsMemory
+  nop 2
+returnCheatcode:
+registersymbol(CheatCode)
+
+
+[DISABLE]
+
+Main1:
+  db 8B 00 48 83 C4 20
+
+unregistersymbol(Main1 GameMode)
+dealloc(newmem GameMode)
+
+Extens2:
+  db 45 38 B7 60 0A 00 00
+
+unregistersymbol(Extens2)
+dealloc(newmema)
+
+Effect:
+  db 38 87 3C 0A 00 00
+
+unregistersymbol(Effect)
+dealloc(newmemb)
+
+Water:
+  db 44 38 AE 60 0A 00 00
+
+unregistersymbol(Water)
+dealloc(newmemc)
+
+CheatCode:
+  db 44 0F B6 87 64 05 00 00
+
+unregistersymbol(CheatCode)
+dealloc(cheatsMemory)
+</AssemblerScript>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>1497</ID>
+          <Description>"Creative ON/OFF"</Description>
+          <Options moRecursiveSetValue="1" moActivateChildrenAsWell="1" moDeactivateChildrenAsWell="1"/>
+          <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0:OFF
+1:ON
+</DropDownList>
+          <ShowAsSigned>0</ShowAsSigned>
+          <Color>D7CA53</Color>
+          <VariableType>4 Bytes</VariableType>
+          <Address>GameMode</Address>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>1498</ID>
+              <Description>"Command Promt"</Description>
+              <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0:OFF
+1:ON
+</DropDownList>
+              <LastState Value="1" RealAddress="18244806D44"/>
+              <ShowAsSigned>0</ShowAsSigned>
+              <Color>D7CA53</Color>
+              <VariableType>Byte</VariableType>
+              <Address>"Minecraft.Windows.exe"+0411B898</Address>
+              <Offsets>
+                <Offset>564</Offset>
+                <Offset>1F8</Offset>
+                <Offset>30</Offset>
+                <Offset>80</Offset>
+                <Offset>8</Offset>
+                <Offset>128</Offset>
+                <Offset>10</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>1499</ID>
+              <Description>"CheatCodes"</Description>
+              <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0:OFF
+1:ON
+</DropDownList>
+              <ShowAsSigned>0</ShowAsSigned>
+              <Color>D7CA53</Color>
+              <VariableType>Byte</VariableType>
+              <Address>"Minecraft.Windows.exe"+03FAC0B8</Address>
+              <Offsets>
+                <Offset>7BC</Offset>
+                <Offset>50</Offset>
+                <Offset>B90</Offset>
+                <Offset>138</Offset>
+                <Offset>28</Offset>
+                <Offset>3E8</Offset>
+                <Offset>28</Offset>
+              </Offsets>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>1500</ID>
+      <Description>"No description"</Description>
+      <VariableType>Byte</VariableType>
+      <Address>20B05F96C0C</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>1501</ID>
+      <Description>"No Description"</Description>
+      <VariableType>Byte</VariableType>
+      <Address>2129890E00C</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>1502</ID>
+      <Description>"pointerscan result"</Description>
+      <LastState Value="1" RealAddress="1824DC0B20C"/>
+      <VariableType>Byte</VariableType>
+      <Address>"Minecraft.Windows.exe"+041593E8</Address>
+      <Offsets>
+        <Offset>7BC</Offset>
+        <Offset>30</Offset>
+        <Offset>6D8</Offset>
+        <Offset>E8</Offset>
+        <Offset>38</Offset>
+        <Offset>8</Offset>
+        <Offset>0</Offset>
+        <Offset>0</Offset>
+        <Offset>738</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>1504</ID>
+      <Description>"pointerscan result"</Description>
+      <LastState Value="1" RealAddress="1824DC0B20C"/>
+      <VariableType>Byte</VariableType>
+      <Address>"Minecraft.Windows.exe"+041593E8</Address>
+      <Offsets>
+        <Offset>7BC</Offset>
+        <Offset>30</Offset>
+        <Offset>6D8</Offset>
+        <Offset>E8</Offset>
+        <Offset>38</Offset>
+        <Offset>8</Offset>
+        <Offset>0</Offset>
+        <Offset>0</Offset>
+        <Offset>688</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>1505</ID>
+      <Description>"pointerscan result"</Description>
+      <LastState Value="1" RealAddress="1824DC0B20C"/>
+      <VariableType>Byte</VariableType>
+      <Address>"Minecraft.Windows.exe"+041593D8</Address>
+      <Offsets>
+        <Offset>7BC</Offset>
+        <Offset>50</Offset>
+        <Offset>C10</Offset>
+        <Offset>138</Offset>
+        <Offset>0</Offset>
+        <Offset>6F8</Offset>
+        <Offset>158</Offset>
+        <Offset>38</Offset>
+        <Offset>8</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>1506</ID>
+      <Description>"pointerscan result"</Description>
+      <LastState Value="1" RealAddress="1824DC0B20C"/>
+      <VariableType>Byte</VariableType>
+      <Address>"Minecraft.Windows.exe"+041DF848</Address>
+      <Offsets>
+        <Offset>7BC</Offset>
+        <Offset>50</Offset>
+        <Offset>C10</Offset>
+        <Offset>138</Offset>
+        <Offset>4F0</Offset>
+        <Offset>138</Offset>
+        <Offset>88</Offset>
+        <Offset>18</Offset>
+        <Offset>18</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>1507</ID>
+      <Description>"pointerscan result"</Description>
+      <LastState Value="1" RealAddress="1824DC0B20C"/>
+      <VariableType>Byte</VariableType>
+      <Address>"Minecraft.Windows.exe"+041593E8</Address>
+      <Offsets>
+        <Offset>7BC</Offset>
+        <Offset>50</Offset>
+        <Offset>DA0</Offset>
+        <Offset>148</Offset>
+        <Offset>18</Offset>
+        <Offset>6F8</Offset>
+        <Offset>158</Offset>
+        <Offset>38</Offset>
+        <Offset>418</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>1508</ID>
+      <Description>"pointerscan result"</Description>
+      <LastState Value="1" RealAddress="1824DC0B20C"/>
+      <VariableType>Byte</VariableType>
+      <Address>"Minecraft.Windows.exe"+041DF848</Address>
+      <Offsets>
+        <Offset>7BC</Offset>
+        <Offset>50</Offset>
+        <Offset>DA0</Offset>
+        <Offset>148</Offset>
+        <Offset>508</Offset>
+        <Offset>138</Offset>
+        <Offset>98</Offset>
+        <Offset>20</Offset>
+        <Offset>18</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>1509</ID>
+      <Description>"pointerscan result"</Description>
+      <LastState Value="1" RealAddress="1824DC0B20C"/>
+      <VariableType>Byte</VariableType>
+      <Address>"Minecraft.Windows.exe"+041593E8</Address>
+      <Offsets>
+        <Offset>7BC</Offset>
+        <Offset>50</Offset>
+        <Offset>DF0</Offset>
+        <Offset>138</Offset>
+        <Offset>10</Offset>
+        <Offset>6F8</Offset>
+        <Offset>E8</Offset>
+        <Offset>38</Offset>
+        <Offset>AC0</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>1510</ID>
+      <Description>"pointerscan result"</Description>
+      <LastState Value="1" RealAddress="1824DC0B20C"/>
+      <VariableType>Byte</VariableType>
+      <Address>"Minecraft.Windows.exe"+041593E8</Address>
+      <Offsets>
+        <Offset>7BC</Offset>
+        <Offset>50</Offset>
+        <Offset>DF0</Offset>
+        <Offset>138</Offset>
+        <Offset>10</Offset>
+        <Offset>6F8</Offset>
+        <Offset>158</Offset>
+        <Offset>38</Offset>
+        <Offset>5B0</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>1511</ID>
+      <Description>"pointerscan result"</Description>
+      <LastState Value="1" RealAddress="1824DC0B20C"/>
+      <VariableType>Byte</VariableType>
+      <Address>"Minecraft.Windows.exe"+041593E8</Address>
+      <Offsets>
+        <Offset>7BC</Offset>
+        <Offset>50</Offset>
+        <Offset>DF0</Offset>
+        <Offset>148</Offset>
+        <Offset>18</Offset>
+        <Offset>6F8</Offset>
+        <Offset>E8</Offset>
+        <Offset>38</Offset>
+        <Offset>648</Offset>
+      </Offsets>
+    </CheatEntry>
+  </CheatEntries>
+  <CheatCodes>
+    <CodeEntry>
+      <Description>Code :movzx eax,byte ptr [rcx+000007BC]</Description>
+      <AddressString>Minecraft.Windows.exe+222F2C4</AddressString>
+      <Before>
+        <Byte>64</Byte>
+        <Byte>05</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+        <Byte>C3</Byte>
+      </Before>
+      <Actual>
+        <Byte>0F</Byte>
+        <Byte>B6</Byte>
+        <Byte>81</Byte>
+        <Byte>BC</Byte>
+        <Byte>07</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Actual>
+      <After>
+        <Byte>C3</Byte>
+        <Byte>CC</Byte>
+        <Byte>CC</Byte>
+        <Byte>CC</Byte>
+        <Byte>CC</Byte>
+      </After>
+    </CodeEntry>
+  </CheatCodes>
+  <UserdefinedSymbols/>
+</CheatTable>

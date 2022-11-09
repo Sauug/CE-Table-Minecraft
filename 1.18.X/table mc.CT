@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="38">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>1450</ID>
+      <Description>"Stealth"</Description>
+      <Options moHideChildren="1"/>
+      <LastState/>
+      <Color>D7CA53</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>{ Game   : Minecraft.Windows.exe
+  Version: 
+  Date   : 2022-05-07
+  Author : Saug
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+aobscanmodule(INJECT,Minecraft.Windows.exe,45 38 A6 4C 09 00 00) // should be unique
+alloc(newmem,$1000,INJECT)
+
+alloc(stealth,5)
+registersymbol(stealth)
+
+label(code)
+label(return)
+
+stealth:
+dd 0
+
+newmem:
+
+  push rbx
+  mov rbx,[stealth]
+  mov [r14+0000094C],rbx
+  pop rbx
+  jmp code
+
+code:
+  cmp [r14+0000094C],r12l
+  jmp return
+
+INJECT:
+  jmp newmem
+  nop 2
+return:
+registersymbol(INJECT)
+
+[DISABLE]
+
+INJECT:
+  db 45 38 A6 4C 09 00 00
+
+unregistersymbol(INJECT)
+dealloc(newmem)
+
+dealloc(stealth)
+unregistersymbol(stealth)
+
+
+{
+// ORIGINAL CODE - INJECTION POINT: Minecraft.Windows.exe+28EE954
+
+Minecraft.Windows.exe+28EE937: 5E                       - pop rsi
+Minecraft.Windows.exe+28EE938: 5D                       - pop rbp
+Minecraft.Windows.exe+28EE939: 5B                       - pop rbx
+Minecraft.Windows.exe+28EE93A: C3                       - ret 
+Minecraft.Windows.exe+28EE93B: 41 F6 86 70 01 00 00 01  - test byte ptr [r14+00000170],01
+Minecraft.Windows.exe+28EE943: 74 30                    - je Minecraft.Windows.exe+28EE975
+Minecraft.Windows.exe+28EE945: 45 84 E4                 - test r12l,r12l
+Minecraft.Windows.exe+28EE948: 75 2B                    - jne Minecraft.Windows.exe+28EE975
+Minecraft.Windows.exe+28EE94A: 41 80 BE 48 09 00 00 01  - cmp byte ptr [r14+00000948],01
+Minecraft.Windows.exe+28EE952: 74 09                    - je Minecraft.Windows.exe+28EE95D
+// ---------- INJECTING HERE ----------
+Minecraft.Windows.exe+28EE954: 45 38 A6 4C 09 00 00     - cmp [r14+0000094C],r12l
+// ---------- DONE INJECTING  ----------
+Minecraft.Windows.exe+28EE95B: 75 B0                    - jne Minecraft.Windows.exe+28EE90D
+Minecraft.Windows.exe+28EE95D: 48 8B 46 38              - mov rax,[rsi+38]
+Minecraft.Windows.exe+28EE961: 48 8B 88 68 03 00 00     - mov rcx,[rax+00000368]
+Minecraft.Windows.exe+28EE968: 48 8B 01                 - mov rax,[rcx]
+Minecraft.Windows.exe+28EE96B: FF 90 E0 00 00 00        - call qword ptr [rax+000000E0]
+Minecraft.Windows.exe+28EE971: 85 C0                    - test eax,eax
+Minecraft.Windows.exe+28EE973: 74 98                    - je Minecraft.Windows.exe+28EE90D
+Minecraft.Windows.exe+28EE975: 48 8B 4E 38              - mov rcx,[rsi+38]
+Minecraft.Windows.exe+28EE979: 41 B5 01                 - mov r13l,01
+Minecraft.Windows.exe+28EE97C: E8 3F 22 59 FF           - call Minecraft.Windows.exe+1E80BC0
+}
+</AssemblerScript>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>1451</ID>
+          <Description>"Value"</Description>
+          <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0:OFF
+1:ON
+</DropDownList>
+          <ShowAsSigned>0</ShowAsSigned>
+          <Color>D7CA53</Color>
+          <VariableType>Byte</VariableType>
+          <Address>stealth</Address>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>47</ID>
+      <Description>"Zoom"</Description>
+      <Options moHideChildren="1" moActivateChildrenAsWell="1" moDeactivateChildrenAsWell="1"/>
+      <LastState/>
+      <Color>D7CA53</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>{ Game   : Minecraft.Windows.exe
+  Version: 
+  Date   : 2022-05-07
+  Author : Saug
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+
+aobscanmodule(INJECT,Minecraft.Windows.exe,F3 0F 10 70 14 F3 0F 10 40) // should be unique
+alloc(newmem,$1000,INJECT)
+
+label(code)
+label(return)
+
+newmem:
+
+code:
+  db F3 0F 10 70 90
+  jmp return
+
+INJECT:
+  jmp newmem
+return:
+registersymbol(INJECT)
+
+[DISABLE]
+
+INJECT:
+  db F3 0F 10 70 14
+
+unregistersymbol(INJECT)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: Minecraft.Windows.exe+18A05AB
+
+Minecraft.Windows.exe+18A0586: 49 8B C8                 - mov rcx,r8
+Minecraft.Windows.exe+18A0589: E8 D2 E8 3C 00           - call Minecraft.Windows.exe+1C6EE60
+Minecraft.Windows.exe+18A058E: 49 8B C8                 - mov rcx,r8
+Minecraft.Windows.exe+18A0591: 0F 28 C8                 - movaps xmm1,xmm0
+Minecraft.Windows.exe+18A0594: E8 67 EA 3C 00           - call Minecraft.Windows.exe+1C6F000
+Minecraft.Windows.exe+18A0599: 49 8B C8                 - mov rcx,r8
+Minecraft.Windows.exe+18A059C: 0F 28 F0                 - movaps xmm6,xmm0
+Minecraft.Windows.exe+18A059F: E8 8C EA 3C 00           - call Minecraft.Windows.exe+1C6F030
+Minecraft.Windows.exe+18A05A4: EB 0F                    - jmp Minecraft.Windows.exe+18A05B5
+Minecraft.Windows.exe+18A05A6: F3 0F 10 48 18           - movss xmm1,[rax+18]
+// ---------- INJECTING HERE ----------
+Minecraft.Windows.exe+18A05AB: F3 0F 10 70 14           - movss xmm6,[rax+14]
+// ---------- DONE INJECTING  ----------
+Minecraft.Windows.exe+18A05B0: F3 0F 10 40 10           - movss xmm0,[rax+10]
+Minecraft.Windows.exe+18A05B5: 0F 2F CE                 - comiss xmm1,xmm6
+Minecraft.Windows.exe+18A05B8: 77 07                    - ja Minecraft.Windows.exe+18A05C1
+Minecraft.Windows.exe+18A05BA: 0F 28 F0                 - movaps xmm6,xmm0
+Minecraft.Windows.exe+18A05BD: F3 0F 5F F1              - maxss xmm6,xmm1
+Minecraft.Windows.exe+18A05C1: F3 0F 10 83 3C 13 00 00  - movss xmm0,[rbx+0000133C]
+Minecraft.Windows.exe+18A05C9: F3 0F 10 8B 38 13 00 00  - movss xmm1,[rbx+00001338]
+Minecraft.Windows.exe+18A05D1: F3 0F 5C C8              - subss xmm1,xmm0
+Minecraft.Windows.exe+18A05D5: F3 41 0F 59 C8           - mulss xmm1,xmm8
+Minecraft.Windows.exe+18A05DA: F3 0F 58 C8              - addss xmm1,xmm0
+}
+</AssemblerScript>
+      <Hotkeys>
+        <Hotkey>
+          <Action>Toggle Activation</Action>
+          <Keys>
+            <Key>70</Key>
+          </Keys>
+          <ID>1</ID>
+        </Hotkey>
+      </Hotkeys>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>1459</ID>
+          <Description>"Smooth Sensibility"</Description>
+          <LastState/>
+          <Color>D7CA53</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{ Game   : Minecraft.Windows.exe
+  Version: 
+  Date   : 2022-05-07
+  Author : Saug
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+aobscanmodule(INJECT,Minecraft.Windows.exe,F3 0F 10 40 14 C3 CC) // should be unique
+alloc(newmem,$1000,INJECT)
+
+label(code)
+label(return)
+
+newmem:
+
+code:
+  db 90 90 90 90 90
+  jmp return
+
+INJECT:
+  jmp newmem
+return:
+registersymbol(INJECT)
+
+[DISABLE]
+
+INJECT:
+  db F3 0F 10 40 14
+
+unregistersymbol(INJECT)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: Minecraft.Windows.exe+1C70207
+
+Minecraft.Windows.exe+1C701E8: 48 8B 40 08                    - mov rax,[rax+08]
+Minecraft.Windows.exe+1C701EC: 3B 50 10                       - cmp edx,[rax+10]
+Minecraft.Windows.exe+1C701EF: 75 F2                          - jne Minecraft.Windows.exe+1C701E3
+Minecraft.Windows.exe+1C701F1: 48 85 C0                       - test rax,rax
+Minecraft.Windows.exe+1C701F4: 49 0F 44 C1                    - cmove rax,r9
+Minecraft.Windows.exe+1C701F8: F3 0F 10 40 14                 - movss xmm0,[rax+14]
+Minecraft.Windows.exe+1C701FD: C3                             - ret 
+Minecraft.Windows.exe+1C701FE: 33 C0                          - xor eax,eax
+Minecraft.Windows.exe+1C70200: 48 85 C0                       - test rax,rax
+Minecraft.Windows.exe+1C70203: 49 0F 44 C1                    - cmove rax,r9
+// ---------- INJECTING HERE ----------
+Minecraft.Windows.exe+1C70207: F3 0F 10 40 14                 - movss xmm0,[rax+14]
+// ---------- DONE INJECTING  ----------
+Minecraft.Windows.exe+1C7020C: C3                             - ret 
+Minecraft.Windows.exe+1C7020D: CC                             - int 3 
+Minecraft.Windows.exe+1C7020E: CC                             - int 3 
+Minecraft.Windows.exe+1C7020F: CC                             - int 3 
+Minecraft.Windows.exe+1C70210: 44 8B D2                       - mov r10d,edx
+Minecraft.Windows.exe+1C70213: 4C 8B D9                       - mov r11,rcx
+Minecraft.Windows.exe+1C70216: 0F B6 D2                       - movzx edx,dl
+Minecraft.Windows.exe+1C70219: 49 B8 B3 01 00 00 00 01 00 00  - mov r8,00000100000001B3
+Minecraft.Windows.exe+1C70223: 48 B8 25 23 22 84 E4 9C F2 CB  - mov rax,CBF29CE484222325
+Minecraft.Windows.exe+1C7022D: 48 33 D0                       - xor rdx,rax
+}
+</AssemblerScript>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>1433</ID>
+      <Description>"Durability // Infinite block // No drowning"</Description>
+      <Options moHideChildren="1"/>
+      <LastState/>
+      <Color>D7CA53</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>{ Game   : Minecraft.Windows.exe
+  Version:
+  Date   : 2022-05-06
+  Author : djvir
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+aobscanmodule(INJECT,Minecraft.Windows.exe,44 38 AE 70 09 00 00 0F B6) // should be unique
+alloc(newmem,$1000,INJECT)
+alloc(durability,5)
+
+label(code)
+label(return)
+
+durability:
+dd 0
+
+
+newmem:
+  push rbx
+  mov rbx,[durability]
+  mov [rsi+00000970],rbx
+  pop rbx
+  jmp code
+code:
+
+  cmp [rsi+00000970],r13l
+  jmp return
+
+INJECT:
+  jmp newmem
+  nop 2
+return:
+registersymbol(INJECT)
+registersymbol(durability)
+
+[DISABLE]
+
+INJECT:
+  db 44 38 AE 70 09 00 00
+
+unregistersymbol(INJECT)
+dealloc(newmem)
+
+dealloc(durability)
+unregistersymbol(durability)
+{
+// ORIGINAL CODE - INJECTION POINT: Minecraft.Windows.exe+1D2BB63
+
+Minecraft.Windows.exe+1D2BB32: 32 DB                    - xor bl,bl
+Minecraft.Windows.exe+1D2BB34: 48 89 AC 24 A0 00 00 00  - mov [rsp+000000A0],rbp
+Minecraft.Windows.exe+1D2BB3C: 4C 89 64 24 78           - mov [rsp+78],r12
+Minecraft.Windows.exe+1D2BB41: 41 BC 01 00 00 00        - mov r12d,00000001
+Minecraft.Windows.exe+1D2BB47: 4C 89 74 24 68           - mov [rsp+68],r14
+Minecraft.Windows.exe+1D2BB4C: 4C 89 7C 24 60           - mov [rsp+60],r15
+Minecraft.Windows.exe+1D2BB51: 44 84 A6 70 01 00 00     - test [rsi+00000170],r12l
+Minecraft.Windows.exe+1D2BB58: 74 17                    - je Minecraft.Windows.exe+1D2BB71
+Minecraft.Windows.exe+1D2BB5A: 44 38 A6 6C 09 00 00     - cmp [rsi+0000096C],r12l
+Minecraft.Windows.exe+1D2BB61: 74 0E                    - je Minecraft.Windows.exe+1D2BB71
+// ---------- INJECTING HERE ----------
+Minecraft.Windows.exe+1D2BB63: 44 38 AE 70 09 00 00     - cmp [rsi+00000970],r13l
+// ---------- DONE INJECTING  ----------
+Minecraft.Windows.exe+1D2BB6A: 0F B6 DB                 - movzx ebx,bl
+Minecraft.Windows.exe+1D2BB6D: 41 0F 45 DC              - cmovne ebx,r12d
+Minecraft.Windows.exe+1D2BB71: 8B 57 08                 - mov edx,[rdi+08]
+Minecraft.Windows.exe+1D2BB74: 4C 8B 47 10              - mov r8,[rdi+10]
+Minecraft.Windows.exe+1D2BB78: 81 E2 FF FF 0F 00        - and edx,000FFFFF
+Minecraft.Windows.exe+1D2BB7E: 8B CA                    - mov ecx,edx
+Minecraft.Windows.exe+1D2BB80: 81 E2 FF 0F 00 00        - and edx,00000FFF
+Minecraft.Windows.exe+1D2BB86: 48 C1 E9 0C              - shr rcx,0C
+Minecraft.Windows.exe+1D2BB8A: 49 8B 40 08              - mov rax,[r8+08]
+Minecraft.Windows.exe+1D2BB8E: 48 8B 04 C8              - mov rax,[rax+rcx*8]
+}
+</AssemblerScript>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>1434</ID>
+          <Description>"Value"</Description>
+          <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">1:Unlimited
+0:OFF
+</DropDownList>
+          <ShowAsSigned>0</ShowAsSigned>
+          <Color>D7CA53</Color>
+          <VariableType>Byte</VariableType>
+          <Address>durability</Address>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+</CheatTable>
